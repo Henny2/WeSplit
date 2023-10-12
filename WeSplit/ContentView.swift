@@ -24,6 +24,15 @@ struct ContentView: View {
         let amountPerPerson = grandTotal / peopleCount
         return amountPerPerson
     }
+    
+    var tipValue: Double {
+        let tipSelection = Double(tipPercentage)
+        let tipValue = checkAmount / 100 * tipSelection
+        return tipValue
+    }
+    var grandTotal: Double{
+        return tipValue + checkAmount
+    }
 
     
     var body: some View {
@@ -42,16 +51,47 @@ struct ContentView: View {
                     }
                     // .pickerStyle(.navigationLink) if you want to change the style of the picker
                 }
+//                Section("How much tip do you want to add?"){
+//                    Picker("Tip Percentage Picker", selection: $tipPercentage){
+//                        ForEach(tipPercentages, id: \.self) {
+//                            Text($0, format: .percent)
+//                        }
+//                    }
+//                    .pickerStyle(.segmented)
+//                }
                 Section("How much tip do you want to add?"){
                     Picker("Tip Percentage Picker", selection: $tipPercentage){
-                        ForEach(tipPercentages, id: \.self) {
+                        ForEach(0..<101) {
                             Text($0, format: .percent)
                         }
                     }
-                    .pickerStyle(.segmented)
+                    .pickerStyle(.navigationLink)
                 }
-                Section{
-                    Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                Section("Totals"){
+                    VStack{
+                        HStack {
+                            Text("Check Total:")
+                            Spacer()
+                            Text(checkAmount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                        }
+                        HStack{
+                            Text("Tip:")
+                            Spacer()
+                            Text(tipValue, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                        }
+                    }
+                    HStack{
+                        Text("Grand Total:")
+                        Spacer()
+                        Text(grandTotal, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    }
+                }
+                Section("Amount per Person"){
+                    HStack{
+                        Text("Total per person:")
+                        Spacer()
+                        Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    }
                 }
             }
             .navigationTitle("WeSplit")
