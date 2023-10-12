@@ -60,7 +60,7 @@ struct ContentView: View {
 //                    .pickerStyle(.segmented)
 //                }
                 Section("How much tip do you want to add?"){
-                    Picker("Tip Percentage Picker", selection: $tipPercentage){
+                    Picker("Tip Percentage", selection: $tipPercentage){
                         ForEach(0..<101) {
                             Text($0, format: .percent)
                         }
