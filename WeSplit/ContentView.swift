@@ -66,6 +66,8 @@ struct ContentView: View {
                         }
                     }
                     .pickerStyle(.navigationLink)
+                    
+                    
                 }
                 Section("Totals"){
                     VStack{
@@ -78,7 +80,7 @@ struct ContentView: View {
                             Text("Tip:")
                             Spacer()
                             Text(tipValue, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                        }
+                        }.foregroundStyle(tipPercentage == 0 ? Color.red : Color.black)
                     }
                     HStack{
                         Text("Grand Total:")
